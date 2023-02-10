@@ -1,10 +1,19 @@
+
+import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'DetailPage.dart';
+import 'ListPage.dart';
 
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: MyApp(),
+   routes: {
+      '/' : (context) => MyApp(),
+     'list' : (context) => List_Page(),
+     'detail' : (context) => Detail_Page(),
+   }
   ));
 }
 
@@ -24,8 +33,8 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
     // TODO: implement initState
     super.initState();
     animationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 5))
-          ..repeat();
+    AnimationController(vsync: this, duration: Duration(seconds: 5))
+      ..repeat();
   }
 
   @override
@@ -39,6 +48,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return Scaffold(
+
       body: Stack(
         children: [
           Container(
@@ -57,6 +67,24 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
                   image: AssetImage('assets/myimages/sun.png'),
                   fit: BoxFit.cover,
                 )),
+          ),
+          Positioned(
+            top: h/12,
+            child: Container(
+              height: h/25,
+              width: w,
+              decoration: BoxDecoration(
+                color: CupertinoColors.black,
+              ),
+              child: Center(
+                child: Text("Galaxy Planets",style: GoogleFonts.lato(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: CupertinoColors.white,
+                    letterSpacing: 1
+                ),),
+              ),
+            ),
           ),
           Positioned(
             top: h / 4,
@@ -201,7 +229,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
             ),
           ),
           Positioned(
-            top: h / 1.1,
+            top: h / 1.2,
             left: w / 2,
             child: RotationTransition(
               turns: animationController,
@@ -214,6 +242,29 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
                   )),
             ),
           ),
+          Positioned(
+            top: h/1.1,
+            child: InkWell(
+              onTap: (){
+                Navigator.of(context).pushNamed('list');
+              },
+              child: Container(
+                height: h/25,
+                width: w,
+                decoration: BoxDecoration(
+                  color: CupertinoColors.black,
+                ),
+                child: Center(
+                  child: Text("Let's Start Journey of Galaxy   ➡️",style: GoogleFonts.lato(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: CupertinoColors.white,
+                      letterSpacing: 1
+                  ),),
+                ),
+              ),
+            ),
+          )
         ],
       ),
       backgroundColor: CupertinoColors.black,
